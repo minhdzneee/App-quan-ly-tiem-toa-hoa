@@ -12,30 +12,7 @@ Project được xây dựng theo:
 - Kiến trúc: 3-Layer Architecture
 - IDE khuyến nghị: Visual Studio 2022 trên Windows
 
-## 1. Lưu Ý Quan Trọng
-
-### Có cần file `.gitignore` không?
-
-Không bắt buộc, nhưng **rất nên giữ**.
-
-File `.gitignore` không ảnh hưởng đến việc clone project sang máy khác. Nó chỉ giúp Git bỏ qua các file sinh tự động như:
-
-- `bin/`
-- `obj/`
-- `.vs/`
-- file cấu hình tạm của Visual Studio
-
-Nếu không có `.gitignore`, khi push lên GitHub repo sẽ nặng hơn, dễ lẫn file build cũ và đôi khi gây lỗi khi clone sang máy khác. Vì vậy project đã có sẵn `.gitignore`; bạn cứ giữ lại là tốt nhất.
-
-### Project có chạy trên “Visual Studio tím” không?
-
-Có, nếu đó là **Visual Studio 2022 trên Windows**.
-
-Không chạy đúng trên macOS vì WPF là công nghệ desktop chỉ hỗ trợ Windows. Visual Studio Code có thể mở code để xem/sửa, nhưng để chạy giao diện WPF thuận tiện thì nên dùng Visual Studio 2022.
-
-Không khuyến nghị Visual Studio 2019 vì project đang target `.NET 8`. Nếu dùng Visual Studio 2019 sẽ dễ gặp lỗi SDK hoặc không nhận WPF project.
-
-## 2. Cấu Trúc Project
+## 1. Cấu Trúc Project
 
 ```text
 GroceryStoreManagement/
@@ -73,7 +50,7 @@ GroceryStoreManagement/
     BaoCao_BaiTapLon.md
 ```
 
-## 3. Các Thành Phần Chính
+## 2. Các Thành Phần Chính
 
 - `GroceryStoreManagement.Models`: chứa các lớp dữ liệu dùng chung.
 - `GroceryStoreManagement.DAL`: tầng truy cập dữ liệu, dùng ADO.NET và SQL Server.
@@ -84,7 +61,7 @@ GroceryStoreManagement/
 - `docs/BaoCao_BaiTapLon.md`: nội dung báo cáo bài tập lớn.
 - `docs/images/`: các ảnh sơ đồ phân tích thiết kế dùng trong báo cáo và README.
 
-## 4. Yêu Cầu Cài Đặt Trên Máy Windows
+## 3. Yêu Cầu Cài Đặt Trên Máy Windows
 
 Cài các phần mềm sau:
 
@@ -103,7 +80,7 @@ Khi cài Visual Studio, nhớ tích workload:
 
 Workload này cần thiết để build và chạy WPF.
 
-## 5. Cách Push Project Lên GitHub
+## 4. Cách Push Project Lên GitHub
 
 Mở Terminal tại thư mục `GroceryStoreManagement`, sau đó chạy:
 
@@ -133,7 +110,7 @@ git commit -m "Update project"
 git push
 ```
 
-## 6. Cách Clone Về Máy Windows
+## 5. Cách Clone Về Máy Windows
 
 Trên máy Windows, mở Terminal hoặc Git Bash:
 
@@ -156,7 +133,7 @@ GroceryStoreManagement.sln
 
 bằng Visual Studio 2022.
 
-## 7. Tạo Database SQL Server
+## 6. Tạo Database SQL Server
 
 1. Mở **SQL Server Management Studio**.
 2. Kết nối đến SQL Server hoặc LocalDB.
@@ -185,7 +162,7 @@ Script đã bao gồm:
 - dữ liệu mẫu
 - một số câu `SELECT` kiểm thử
 
-## 8. Cấu Hình Chuỗi Kết Nối
+## 7. Cấu Hình Chuỗi Kết Nối
 
 Mở file:
 
@@ -221,7 +198,7 @@ hoặc:
 @"Server=DESKTOP-ABC123;Database=GroceryStoreManagement;Trusted_Connection=True;TrustServerCertificate=True;"
 ```
 
-## 9. Chạy Ứng Dụng Trong Visual Studio
+## 8. Chạy Ứng Dụng Trong Visual Studio
 
 1. Mở `GroceryStoreManagement.sln`.
 2. Trong Solution Explorer, bấm chuột phải vào project:
@@ -257,7 +234,7 @@ hoặc:
 
 hoặc nhấn `F5`.
 
-## 10. Tài Khoản Đăng Nhập Mẫu
+## 9. Tài Khoản Đăng Nhập Mẫu
 
 Mật khẩu mặc định của tất cả tài khoản mẫu là:
 
@@ -272,7 +249,7 @@ Mật khẩu mặc định của tất cả tài khoản mẫu là:
 | `kho` | Nhân viên kho |
 | `banhang` | Nhân viên bán hàng |
 
-## 11. Các Chức Năng Đã Có
+## 10. Các Chức Năng Đã Có
 
 - Đăng nhập hệ thống.
 - Ghi lịch sử truy cập.
@@ -291,7 +268,7 @@ Mật khẩu mặc định của tất cả tài khoản mẫu là:
 - Kiểm kê kho.
 - Báo cáo doanh thu, tồn kho thấp, sản phẩm sắp hết hạn và sản phẩm bán chạy.
 
-## 12. Luồng Kiến Trúc
+## 11. Luồng Kiến Trúc
 
 Ứng dụng đi theo luồng:
 
@@ -324,7 +301,7 @@ NhapHangView
   -> SQL Server
 ```
 
-## 13. Sơ Đồ Phân Tích Thiết Kế
+## 12. Sơ Đồ Phân Tích Thiết Kế
 
 Các ảnh sơ đồ trong thư mục `docs/images/` có liên hệ trực tiếp với project. Đây là phần phân tích thiết kế của hệ thống, nên **nên push lên GitHub cùng mã nguồn** để người xem hiểu kiến trúc, database và luồng nghiệp vụ.
 
@@ -374,7 +351,7 @@ Các ảnh sơ đồ trong thư mục `docs/images/` có liên hệ trực tiế
 
 ![ERD chi tiết](docs/images/erd-detail.png)
 
-## 14. Lỗi Thường Gặp Khi Chạy
+## 13. Lỗi Thường Gặp Khi Chạy
 
 ### Lỗi không mở được project WPF
 
@@ -419,7 +396,7 @@ Kiểm tra đã chạy script database chưa. Script có sẵn các tài khoản
 
 Đây là bình thường. Các thư mục `bin/` và `obj/` không cần push lên GitHub. Visual Studio sẽ tự tạo lại khi build.
 
-## 15. Ghi Chú Cho Người Chấm Hoặc Người Test
+## 14. Ghi Chú Cho Người Chấm Hoặc Người Test
 
 - Mở `GroceryStoreManagement.sln` bằng Visual Studio 2022 trên Windows.
 - Chạy database trước bằng file `database/GroceryStoreManagement.sql`.
@@ -427,7 +404,7 @@ Kiểm tra đã chạy script database chưa. Script có sẵn các tài khoản
 - Startup Project là `GroceryStoreManagement.Presentation`.
 - Tài khoản test nhanh: `admin / 123456`.
 
-## 16. Tài Liệu Đi Kèm
+## 15. Tài Liệu Đi Kèm
 
 Các tài liệu phân tích thiết kế nằm trong thư mục `docs/`:
 
