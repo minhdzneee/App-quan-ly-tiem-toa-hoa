@@ -1,0 +1,61 @@
+<Window x:Class="GroceryStoreManagement.Presentation.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quản lý hàng tạp hóa"
+        Width="1280"
+        Height="760"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#12343B">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top" Margin="18,24,18,16">
+                    <TextBlock Text="TẠP HÓA"
+                               Foreground="White"
+                               FontSize="24"
+                               FontWeight="Bold" />
+                    <TextBlock Text="Quản lý bán hàng"
+                               Foreground="#B7DDE7"
+                               Margin="0,4,0,18" />
+
+                    <Button Content="Dashboard" Command="{Binding ShowDashboardCommand}" />
+                    <Button Content="Sản phẩm" Command="{Binding ShowSanPhamCommand}" />
+                    <Button Content="Nhập hàng" Command="{Binding ShowNhapHangCommand}" />
+                    <Button Content="Bán hàng" Command="{Binding ShowBanHangCommand}" />
+                    <Button Content="Khách hàng" Command="{Binding ShowKhachHangCommand}" />
+                    <Button Content="Kiểm kê" Command="{Binding ShowKiemKeCommand}" />
+                    <Button Content="Báo cáo" Command="{Binding ShowBaoCaoCommand}" />
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Bottom" Margin="18,16,18,24">
+                    <TextBlock Text="{Binding UserDisplayName}"
+                               Foreground="White"
+                               FontWeight="SemiBold"
+                               TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding RoleDisplayName}"
+                               Foreground="#B7DDE7"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Grid Grid.Column="1" Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding PageTitle}"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource TextBrush}"
+                       Margin="0,0,0,18" />
+
+            <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
+        </Grid>
+    </Grid>
+</Window>

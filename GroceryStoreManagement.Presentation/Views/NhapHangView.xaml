@@ -1,0 +1,74 @@
+<UserControl x:Class="GroceryStoreManagement.Presentation.Views.NhapHangView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Background="White" Padding="12" Margin="0,0,0,12">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Nhà cung cấp" VerticalAlignment="Center" Margin="4,0,8,0" />
+                <ComboBox Width="230"
+                          ItemsSource="{Binding NhaCungCaps}"
+                          DisplayMemberPath="TenNhaCungCap"
+                          SelectedItem="{Binding SelectedNhaCungCap}" />
+                <TextBox Width="230"
+                         Text="{Binding ProductKeyword, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="Nhập mã sản phẩm, tên hoặc mã vạch" />
+                <Button Content="Tìm sản phẩm" Command="{Binding SearchProductCommand}" />
+                <TextBlock Text="{Binding SelectedSanPham.TenSanPham}" VerticalAlignment="Center" Margin="12,0" FontWeight="SemiBold" />
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" Padding="16" Margin="0,4,12,4">
+                <StackPanel>
+                    <TextBlock Text="Chi tiết nhập hàng" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12" />
+                    <TextBlock Text="Số lượng" />
+                    <TextBox Text="{Binding SoLuong, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Đơn giá nhập" />
+                    <TextBox Text="{Binding DonGiaNhap, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Content="Thêm vào phiếu" Command="{Binding AddItemCommand}" Background="{StaticResource AccentBrush}" />
+                    <Button Content="Lưu phiếu nhập" Command="{Binding SaveCommand}" />
+                    <Button Content="Làm mới" Command="{Binding ClearCommand}" />
+
+                    <TextBlock Text="Tổng tiền" Margin="0,24,0,4" Foreground="#64748B" />
+                    <TextBlock Text="{Binding TongTien, StringFormat={}{0:N0} đ}" FontSize="24" FontWeight="Bold" />
+                </StackPanel>
+            </Border>
+
+            <DataGrid Grid.Column="1" ItemsSource="{Binding DetailItems}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã" Binding="{Binding MaSanPham}" Width="110" />
+                    <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding TenSanPham}" Width="*" />
+                    <DataGridTextColumn Header="Số lượng" Binding="{Binding SoLuong}" Width="90" />
+                    <DataGridTextColumn Header="Đơn giá nhập" Binding="{Binding DonGiaNhap, StringFormat={}{0:N0}}" Width="120" />
+                    <DataGridTextColumn Header="Thành tiền" Binding="{Binding ThanhTien, StringFormat={}{0:N0}}" Width="120" />
+                    <DataGridTemplateColumn Header="" Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Xóa"
+                                        Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"
+                                        Background="{StaticResource DangerBrush}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <TextBlock Grid.Row="2"
+                   Text="{Binding StatusMessage}"
+                   Foreground="#475569"
+                   Margin="4,12,0,0" />
+    </Grid>
+</UserControl>

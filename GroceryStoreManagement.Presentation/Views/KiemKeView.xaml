@@ -1,0 +1,66 @@
+<UserControl x:Class="GroceryStoreManagement.Presentation.Views.KiemKeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Background="White" Padding="12" Margin="0,0,0,12">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="280"
+                         Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="Tìm theo mã, tên hoặc mã vạch" />
+                <Button Content="Tìm sản phẩm" Command="{Binding SearchProductCommand}" />
+                <TextBlock Text="{Binding SelectedSanPham.TenSanPham}" VerticalAlignment="Center" FontWeight="SemiBold" Margin="12,0" />
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" Padding="16" Margin="0,4,12,4">
+                <StackPanel>
+                    <TextBlock Text="Dòng kiểm kê" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12" />
+                    <TextBlock Text="Số lượng hệ thống" />
+                    <TextBlock Text="{Binding SelectedSanPham.SoLuongTon}" FontSize="22" FontWeight="Bold" Margin="4,4,4,12" />
+                    <TextBlock Text="Số lượng thực tế" />
+                    <TextBox Text="{Binding SoLuongThucTe, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Content="Thêm dòng" Command="{Binding AddItemCommand}" Background="{StaticResource AccentBrush}" />
+                    <Button Content="Lưu kiểm kê" Command="{Binding SaveCommand}" />
+                    <Button Content="Làm mới" Command="{Binding ClearCommand}" />
+                </StackPanel>
+            </Border>
+
+            <DataGrid Grid.Column="1" ItemsSource="{Binding DetailItems}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã" Binding="{Binding MaSanPham}" Width="110" />
+                    <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding TenSanPham}" Width="*" />
+                    <DataGridTextColumn Header="Hệ thống" Binding="{Binding SoLuongHeThong}" Width="100" />
+                    <DataGridTextColumn Header="Thực tế" Binding="{Binding SoLuongThucTe}" Width="100" />
+                    <DataGridTextColumn Header="Chênh lệch" Binding="{Binding ChenhLech}" Width="110" />
+                    <DataGridTemplateColumn Header="" Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Xóa"
+                                        Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"
+                                        Background="{StaticResource DangerBrush}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <TextBlock Grid.Row="2"
+                   Text="{Binding StatusMessage}"
+                   Foreground="#475569"
+                   Margin="4,12,0,0" />
+    </Grid>
+</UserControl>

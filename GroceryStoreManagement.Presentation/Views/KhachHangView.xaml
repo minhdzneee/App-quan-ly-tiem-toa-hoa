@@ -1,0 +1,35 @@
+<UserControl x:Class="GroceryStoreManagement.Presentation.Views.KhachHangView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Background="White" Padding="12" Margin="0,0,0,12">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="300"
+                         Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="Tìm theo mã, tên hoặc số điện thoại" />
+                <Button Content="Tìm kiếm" Command="{Binding SearchCommand}" />
+            </StackPanel>
+        </Border>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding KhachHangs}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mã" Binding="{Binding MaKhachHang}" Width="120" />
+                <DataGridTextColumn Header="Họ tên" Binding="{Binding HoTen}" Width="220" />
+                <DataGridTextColumn Header="Số điện thoại" Binding="{Binding SoDienThoai}" Width="140" />
+                <DataGridTextColumn Header="Địa chỉ" Binding="{Binding DiaChi}" Width="*" />
+                <DataGridTextColumn Header="Điểm tích lũy" Binding="{Binding DiemTichLuy}" Width="120" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Grid.Row="2"
+                   Text="{Binding StatusMessage}"
+                   Foreground="#475569"
+                   Margin="4,12,0,0" />
+    </Grid>
+</UserControl>

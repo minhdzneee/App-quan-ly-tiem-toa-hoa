@@ -1,0 +1,18 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.rsuser
+TestResults/
+packages/
+*.nupkg
+*.log
+
+# Visual Studio generated files
+.vscode/
+*.DotSettings.user
+
+# SQL Server local files
+*.mdf
+*.ldf
