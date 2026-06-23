@@ -89,7 +89,7 @@ git init
 git add .
 git commit -m "Initial grocery store management project"
 git branch -M main
-git remote add origin https://github.com/<username>/<repository-name>.git
+git remote add origin https://github.com/minhdzneee/App-quan-ly-tiem-toa-hoa.git
 git push -u origin main
 ```
 
@@ -115,8 +115,8 @@ git push
 Trên máy Windows, mở Terminal hoặc Git Bash:
 
 ```bash
-git clone https://github.com/<username>/<repository-name>.git
-cd <repository-name>
+git clone https://github.com/minhdzneee/App-quan-ly-tiem-toa-hoa.git
+cd App-quan-ly-tiem-toa-hoa
 ```
 
 Nếu bạn push nguyên thư mục cha, hãy đi vào thư mục project:
