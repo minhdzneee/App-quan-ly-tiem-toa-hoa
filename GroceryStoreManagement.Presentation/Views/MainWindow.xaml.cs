@@ -8,6 +8,14 @@ public partial class MainWindow : Window
     public MainWindow(MainViewModel viewModel)
     {
         InitializeComponent();
+        viewModel.LogoutRequested += OnLogoutRequested;
         DataContext = viewModel;
+    }
+
+    private void OnLogoutRequested()
+    {
+        var loginView = new LoginView();
+        loginView.Show();
+        Close();
     }
 }

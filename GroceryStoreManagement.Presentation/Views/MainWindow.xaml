@@ -5,6 +5,10 @@
         Width="1280"
         Height="760"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="230" />
@@ -22,13 +26,27 @@
                                Foreground="#B7DDE7"
                                Margin="0,4,0,18" />
 
-                    <Button Content="Dashboard" Command="{Binding ShowDashboardCommand}" />
-                    <Button Content="Sản phẩm" Command="{Binding ShowSanPhamCommand}" />
-                    <Button Content="Nhập hàng" Command="{Binding ShowNhapHangCommand}" />
-                    <Button Content="Bán hàng" Command="{Binding ShowBanHangCommand}" />
-                    <Button Content="Khách hàng" Command="{Binding ShowKhachHangCommand}" />
-                    <Button Content="Kiểm kê" Command="{Binding ShowKiemKeCommand}" />
-                    <Button Content="Báo cáo" Command="{Binding ShowBaoCaoCommand}" />
+                    <Button Content="Dashboard"
+                            Command="{Binding ShowDashboardCommand}"
+                            Visibility="{Binding CanViewDashboard, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="Sản phẩm"
+                            Command="{Binding ShowSanPhamCommand}"
+                            Visibility="{Binding CanViewSanPham, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="Nhập hàng"
+                            Command="{Binding ShowNhapHangCommand}"
+                            Visibility="{Binding CanViewNhapHang, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="Bán hàng"
+                            Command="{Binding ShowBanHangCommand}"
+                            Visibility="{Binding CanViewBanHang, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="Khách hàng"
+                            Command="{Binding ShowKhachHangCommand}"
+                            Visibility="{Binding CanViewKhachHang, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="Kiểm kê"
+                            Command="{Binding ShowKiemKeCommand}"
+                            Visibility="{Binding CanViewKiemKe, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="Báo cáo"
+                            Command="{Binding ShowBaoCaoCommand}"
+                            Visibility="{Binding CanViewBaoCao, Converter={StaticResource BoolToVisibilityConverter}}" />
                 </StackPanel>
 
                 <StackPanel DockPanel.Dock="Bottom" Margin="18,16,18,24">
@@ -39,6 +57,10 @@
                     <TextBlock Text="{Binding RoleDisplayName}"
                                Foreground="#B7DDE7"
                                TextWrapping="Wrap" />
+                    <Button Content="Đăng xuất"
+                            Command="{Binding LogoutCommand}"
+                            Background="{StaticResource DangerBrush}"
+                            Margin="0,14,0,0" />
                 </StackPanel>
             </DockPanel>
         </Border>

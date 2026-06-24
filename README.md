@@ -249,9 +249,19 @@ Mật khẩu mặc định của tất cả tài khoản mẫu là:
 | `kho` | Nhân viên kho |
 | `banhang` | Nhân viên bán hàng |
 
+Phân quyền menu hiện tại:
+
+| Vai trò | Chức năng được hiển thị |
+| --- | --- |
+| Admin | Dashboard, Sản phẩm, Nhập hàng, Bán hàng, Khách hàng, Kiểm kê, Báo cáo |
+| Quản lý | Dashboard, Sản phẩm, Nhập hàng, Bán hàng, Khách hàng, Kiểm kê, Báo cáo |
+| Nhân viên kho | Dashboard, Sản phẩm, Nhập hàng, Kiểm kê |
+| Nhân viên bán hàng | Dashboard, Bán hàng, Khách hàng |
+
 ## 10. Các Chức Năng Đã Có
 
 - Đăng nhập hệ thống.
+- Đăng xuất tài khoản.
 - Ghi lịch sử truy cập.
 - Dashboard tổng quan.
 - Quản lý sản phẩm.

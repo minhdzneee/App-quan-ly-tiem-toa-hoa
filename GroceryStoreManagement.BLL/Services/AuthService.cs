@@ -53,6 +53,11 @@ public class AuthService
         await _taiKhoanRepository.GhiLichSuTruyCapAsync(taiKhoanId, "Doi mat khau");
     }
 
+    public Task LogoutAsync(int taiKhoanId)
+    {
+        return _taiKhoanRepository.GhiLichSuTruyCapAsync(taiKhoanId, "Dang xuat he thong");
+    }
+
     public static string HashPassword(string password)
     {
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(password));
