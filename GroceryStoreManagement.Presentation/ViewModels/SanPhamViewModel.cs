@@ -57,6 +57,8 @@ public class SanPhamViewModel : BaseViewModel
             {
                 EditingSanPham = Clone(value);
             }
+
+            DeleteCommand.RaiseCanExecuteChanged();
         }
     }
 
@@ -76,7 +78,7 @@ public class SanPhamViewModel : BaseViewModel
     public ICommand SearchCommand { get; }
     public ICommand NewCommand { get; }
     public ICommand SaveCommand { get; }
-    public ICommand DeleteCommand { get; }
+    public AsyncRelayCommand DeleteCommand { get; }
 
     private async Task LoadAsync()
     {
@@ -94,8 +96,8 @@ public class SanPhamViewModel : BaseViewModel
                 DonViTinhs.Add(item);
             }
 
-            await SearchAsync();
-            NewSanPham();
+            await SearchAsync(updateStatus: true);
+            NewSanPham(updateStatus: false);
         }
         catch (Exception ex)
         {
@@ -103,7 +105,7 @@ public class SanPhamViewModel : BaseViewModel
         }
     }
 
-    private async Task SearchAsync()
+    private async Task SearchAsync(bool updateStatus = true)
     {
         try
         {
@@ -114,7 +116,10 @@ public class SanPhamViewModel : BaseViewModel
                 SanPhams.Add(product);
             }
 
-            StatusMessage = $"Tìm thấy {SanPhams.Count} sản phẩm.";
+            if (updateStatus)
+            {
+                StatusMessage = $"Tìm thấy {SanPhams.Count} sản phẩm.";
+            }
         }
         catch (Exception ex)
         {
@@ -122,7 +127,7 @@ public class SanPhamViewModel : BaseViewModel
         }
     }
 
-    private void NewSanPham()
+    private void NewSanPham(bool updateStatus = true)
     {
         EditingSanPham = new SanPham
         {
@@ -132,6 +137,10 @@ public class SanPhamViewModel : BaseViewModel
             TrangThai = "DangBan"
         };
         SelectedSanPham = null;
+        if (updateStatus)
+        {
+            StatusMessage = "Đang thêm sản phẩm mới.";
+        }
     }
 
     private async Task SaveAsync()
@@ -149,8 +158,10 @@ public class SanPhamViewModel : BaseViewModel
                 StatusMessage = "Đã cập nhật sản phẩm.";
             }
 
-            await SearchAsync();
-            NewSanPham();
+            var successMessage = StatusMessage;
+            await SearchAsync(updateStatus: false);
+            NewSanPham(updateStatus: false);
+            StatusMessage = successMessage;
         }
         catch (Exception ex)
         {
@@ -168,9 +179,10 @@ public class SanPhamViewModel : BaseViewModel
         try
         {
             await _sanPhamService.DeleteAsync(SelectedSanPham.Id);
-            StatusMessage = "Đã xóa sản phẩm.";
-            await SearchAsync();
-            NewSanPham();
+            var successMessage = "Đã xóa sản phẩm.";
+            await SearchAsync(updateStatus: false);
+            NewSanPham(updateStatus: false);
+            StatusMessage = successMessage;
         }
         catch (Exception ex)
         {

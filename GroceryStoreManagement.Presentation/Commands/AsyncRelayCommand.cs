@@ -6,6 +6,7 @@ public class AsyncRelayCommand : ICommand
 {
     private readonly Func<object?, Task> _execute;
     private readonly Predicate<object?>? _canExecute;
+    private event EventHandler? CanExecuteChangedInternal;
     private bool _isExecuting;
 
     public AsyncRelayCommand(Func<object?, Task> execute, Predicate<object?>? canExecute = null)
@@ -39,10 +40,23 @@ public class AsyncRelayCommand : ICommand
         }
     }
 
-    public event EventHandler? CanExecuteChanged;
+    public event EventHandler? CanExecuteChanged
+    {
+        add
+        {
+            CanExecuteChangedInternal += value;
+            CommandManager.RequerySuggested += value;
+        }
+        remove
+        {
+            CanExecuteChangedInternal -= value;
+            CommandManager.RequerySuggested -= value;
+        }
+    }
 
     public void RaiseCanExecuteChanged()
     {
-        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        CanExecuteChangedInternal?.Invoke(this, EventArgs.Empty);
+        CommandManager.InvalidateRequerySuggested();
     }
 }

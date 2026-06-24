@@ -93,7 +93,8 @@
                         <TextBox Text="{Binding EditingSanPham.MaVach, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock Text="Trạng thái" />
-                        <ComboBox SelectedValue="{Binding EditingSanPham.TrangThai}">
+                        <ComboBox SelectedValue="{Binding EditingSanPham.TrangThai, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedValuePath="Content">
                             <ComboBoxItem Content="DangBan" />
                             <ComboBoxItem Content="NgungBan" />
                         </ComboBox>

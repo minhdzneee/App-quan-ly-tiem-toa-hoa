@@ -27,6 +27,7 @@ public class SanPhamRepository
                    OR sp.TenSanPham LIKE '%' + @Keyword + '%'
                    OR sp.MaVach LIKE '%' + @Keyword + '%')
               AND (@DanhMucId IS NULL OR sp.DanhMucId = @DanhMucId)
+              AND sp.TrangThai <> N'DaXoa'
             ORDER BY sp.TenSanPham;
             """;
 
@@ -56,7 +57,7 @@ public class SanPhamRepository
             FROM SanPham sp
             INNER JOIN DanhMuc dm ON dm.Id = sp.DanhMucId
             INNER JOIN DonViTinh dvt ON dvt.Id = sp.DonViTinhId
-            WHERE sp.Id = @Id;
+            WHERE sp.Id = @Id AND sp.TrangThai <> N'DaXoa';
             """;
 
         await using var connection = _connectionFactory.CreateConnection();
@@ -77,7 +78,8 @@ public class SanPhamRepository
             FROM SanPham sp
             INNER JOIN DanhMuc dm ON dm.Id = sp.DanhMucId
             INNER JOIN DonViTinh dvt ON dvt.Id = sp.DonViTinhId
-            WHERE sp.MaSanPham = @Keyword OR sp.MaVach = @Keyword OR sp.TenSanPham LIKE '%' + @Keyword + '%'
+            WHERE (sp.MaSanPham = @Keyword OR sp.MaVach = @Keyword OR sp.TenSanPham LIKE '%' + @Keyword + '%')
+              AND sp.TrangThai <> N'DaXoa'
             ORDER BY sp.TenSanPham;
             """;
 
@@ -135,7 +137,7 @@ public class SanPhamRepository
 
     public async Task DeleteAsync(int id)
     {
-        const string sql = "DELETE FROM SanPham WHERE Id = @Id;";
+        const string sql = "UPDATE SanPham SET TrangThai = N'DaXoa' WHERE Id = @Id;";
 
         await using var connection = _connectionFactory.CreateConnection();
         await connection.OpenAsync();
