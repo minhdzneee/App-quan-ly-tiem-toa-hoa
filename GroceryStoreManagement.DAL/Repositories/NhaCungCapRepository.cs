@@ -42,4 +42,81 @@ public class NhaCungCapRepository
 
         return result;
     }
+
+    public async Task<int> AddAsync(NhaCungCap nhaCungCap)
+    {
+        const string sql = """
+            INSERT INTO NhaCungCap(MaNhaCungCap, TenNhaCungCap, SoDienThoai, DiaChi, Email)
+            OUTPUT INSERTED.Id
+            VALUES (@MaNhaCungCap, @TenNhaCungCap, @SoDienThoai, @DiaChi, @Email);
+            """;
+
+        await using var connection = _connectionFactory.CreateConnection();
+        await connection.OpenAsync();
+        await using var command = new SqlCommand(sql, connection);
+        AddParameters(command, nhaCungCap);
+        return Convert.ToInt32(await command.ExecuteScalarAsync());
+    }
+
+    public async Task UpdateAsync(NhaCungCap nhaCungCap)
+    {
+        const string sql = """
+            UPDATE NhaCungCap
+            SET MaNhaCungCap = @MaNhaCungCap,
+                TenNhaCungCap = @TenNhaCungCap,
+                SoDienThoai = @SoDienThoai,
+                DiaChi = @DiaChi,
+                Email = @Email
+            WHERE Id = @Id;
+            """;
+
+        await using var connection = _connectionFactory.CreateConnection();
+        await connection.OpenAsync();
+        await using var command = new SqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@Id", nhaCungCap.Id);
+        AddParameters(command, nhaCungCap);
+        await command.ExecuteNonQueryAsync();
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        const string sql = """
+            IF EXISTS (SELECT 1 FROM PhieuNhap WHERE NhaCungCapId = @Id)
+                THROW 51000, 'Khong the xoa nha cung cap da co phieu nhap.', 1;
+
+            DELETE FROM NhaCungCap WHERE Id = @Id;
+            """;
+
+        await using var connection = _connectionFactory.CreateConnection();
+        await connection.OpenAsync();
+        await using var command = new SqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@Id", id);
+        await command.ExecuteNonQueryAsync();
+    }
+
+    public async Task<bool> IsDuplicateAsync(string maNhaCungCap, int? excludeId = null)
+    {
+        const string sql = """
+            SELECT COUNT(1)
+            FROM NhaCungCap
+            WHERE MaNhaCungCap = @MaNhaCungCap
+              AND (@ExcludeId IS NULL OR Id <> @ExcludeId);
+            """;
+
+        await using var connection = _connectionFactory.CreateConnection();
+        await connection.OpenAsync();
+        await using var command = new SqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@MaNhaCungCap", maNhaCungCap);
+        command.Parameters.AddWithValue("@ExcludeId", excludeId.HasValue ? excludeId.Value : DBNull.Value);
+        return Convert.ToInt32(await command.ExecuteScalarAsync()) > 0;
+    }
+
+    private static void AddParameters(SqlCommand command, NhaCungCap nhaCungCap)
+    {
+        command.Parameters.AddWithValue("@MaNhaCungCap", nhaCungCap.MaNhaCungCap);
+        command.Parameters.AddWithValue("@TenNhaCungCap", nhaCungCap.TenNhaCungCap);
+        command.Parameters.AddWithValue("@SoDienThoai", string.IsNullOrWhiteSpace(nhaCungCap.SoDienThoai) ? DBNull.Value : nhaCungCap.SoDienThoai);
+        command.Parameters.AddWithValue("@DiaChi", string.IsNullOrWhiteSpace(nhaCungCap.DiaChi) ? DBNull.Value : nhaCungCap.DiaChi);
+        command.Parameters.AddWithValue("@Email", string.IsNullOrWhiteSpace(nhaCungCap.Email) ? DBNull.Value : nhaCungCap.Email);
+    }
 }

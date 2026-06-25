@@ -9,23 +9,55 @@
         </Grid.RowDefinitions>
 
         <Border Background="White" Padding="12" Margin="0,0,0,12">
-            <StackPanel Orientation="Horizontal">
-                <TextBox Width="300"
-                         Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
-                         ToolTip="Tìm theo mã, tên hoặc số điện thoại" />
-                <Button Content="Tìm kiếm" Command="{Binding SearchCommand}" />
-            </StackPanel>
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <TextBox Width="300"
+                             Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Tìm theo mã, tên hoặc số điện thoại" />
+                    <Button Content="Tìm kiếm" Command="{Binding SearchCommand}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Thêm mới" Command="{Binding NewCommand}" />
+                    <Button Content="Lưu" Command="{Binding SaveCommand}" Background="{StaticResource AccentBrush}" />
+                    <Button Content="Xóa" Command="{Binding DeleteCommand}" Background="{StaticResource DangerBrush}" />
+                </StackPanel>
+            </DockPanel>
         </Border>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding KhachHangs}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Mã" Binding="{Binding MaKhachHang}" Width="120" />
-                <DataGridTextColumn Header="Họ tên" Binding="{Binding HoTen}" Width="220" />
-                <DataGridTextColumn Header="Số điện thoại" Binding="{Binding SoDienThoai}" Width="140" />
-                <DataGridTextColumn Header="Địa chỉ" Binding="{Binding DiaChi}" Width="*" />
-                <DataGridTextColumn Header="Điểm tích lũy" Binding="{Binding DiemTichLuy}" Width="120" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="360" />
+            </Grid.ColumnDefinitions>
+
+            <DataGrid Grid.Column="0"
+                      ItemsSource="{Binding KhachHangs}"
+                      SelectedItem="{Binding SelectedKhachHang}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã" Binding="{Binding MaKhachHang}" Width="120" />
+                    <DataGridTextColumn Header="Họ tên" Binding="{Binding HoTen}" Width="220" />
+                    <DataGridTextColumn Header="Số điện thoại" Binding="{Binding SoDienThoai}" Width="140" />
+                    <DataGridTextColumn Header="Địa chỉ" Binding="{Binding DiaChi}" Width="*" />
+                    <DataGridTextColumn Header="Điểm tích lũy" Binding="{Binding DiemTichLuy}" Width="120" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Border Grid.Column="1" Background="White" Padding="16" Margin="12,4,4,4">
+                <StackPanel>
+                    <TextBlock Text="Thông tin khách hàng" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12" />
+                    <TextBlock Text="Mã khách hàng" />
+                    <TextBox Text="{Binding EditingKhachHang.MaKhachHang, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Họ tên" />
+                    <TextBox Text="{Binding EditingKhachHang.HoTen, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Số điện thoại" />
+                    <TextBox Text="{Binding EditingKhachHang.SoDienThoai, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Địa chỉ" />
+                    <TextBox Text="{Binding EditingKhachHang.DiaChi, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="Điểm tích lũy" />
+                    <TextBox Text="{Binding EditingKhachHang.DiemTichLuy, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </Border>
+        </Grid>
 
         <TextBlock Grid.Row="2"
                    Text="{Binding StatusMessage}"

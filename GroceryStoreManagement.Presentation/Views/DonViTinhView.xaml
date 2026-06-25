@@ -1,10 +1,45 @@
 <UserControl x:Class="GroceryStoreManagement.Presentation.Views.DonViTinhView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <DataGrid ItemsSource="{Binding DonViTinhs}">
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="90" />
-            <DataGridTextColumn Header="Tên đơn vị" Binding="{Binding TenDonVi}" Width="*" />
-        </DataGrid.Columns>
-    </DataGrid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Background="White" Padding="12" Margin="0,0,0,12">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Thêm mới" Command="{Binding NewCommand}" />
+                <Button Content="Lưu" Command="{Binding SaveCommand}" Background="{StaticResource AccentBrush}" />
+                <Button Content="Xóa" Command="{Binding DeleteCommand}" Background="{StaticResource DangerBrush}" />
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="360" />
+            </Grid.ColumnDefinitions>
+
+            <DataGrid Grid.Column="0"
+                      ItemsSource="{Binding DonViTinhs}"
+                      SelectedItem="{Binding SelectedDonViTinh}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="90" />
+                    <DataGridTextColumn Header="Tên đơn vị" Binding="{Binding TenDonVi}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Border Grid.Column="1" Background="White" Padding="16" Margin="12,4,4,4">
+                <StackPanel>
+                    <TextBlock Text="Thông tin đơn vị tính" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12" />
+                    <TextBlock Text="Tên đơn vị tính" />
+                    <TextBox Text="{Binding EditingDonViTinh.TenDonVi, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="#475569" Margin="4,12,0,0" />
+    </Grid>
 </UserControl>

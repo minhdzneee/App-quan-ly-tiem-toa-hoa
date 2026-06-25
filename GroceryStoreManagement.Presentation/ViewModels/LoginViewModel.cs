@@ -17,6 +17,7 @@ public class LoginViewModel : BaseViewModel
     {
         _authService = authService;
         LoginCommand = new AsyncRelayCommand(_ => LoginAsync());
+        OpenRegisterCommand = new RelayCommand(_ => RegisterRequested?.Invoke());
     }
 
     public string TenDangNhap
@@ -44,8 +45,10 @@ public class LoginViewModel : BaseViewModel
     }
 
     public ICommand LoginCommand { get; }
+    public ICommand OpenRegisterCommand { get; }
 
     public event Action<TaiKhoan>? LoginSucceeded;
+    public event Action? RegisterRequested;
 
     private async Task LoginAsync()
     {

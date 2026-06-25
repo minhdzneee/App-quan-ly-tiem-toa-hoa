@@ -52,6 +52,15 @@
         <DataTemplate DataType="{x:Type vm:SanPhamViewModel}">
             <views:SanPhamView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DanhMucViewModel}">
+            <views:DanhMucView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DonViTinhViewModel}">
+            <views:DonViTinhView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:NhaCungCapViewModel}">
+            <views:NhaCungCapView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:NhapHangViewModel}">
             <views:NhapHangView />
         </DataTemplate>

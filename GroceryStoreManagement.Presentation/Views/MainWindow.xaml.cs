@@ -9,6 +9,14 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         viewModel.LogoutRequested += OnLogoutRequested;
+        viewModel.ChangePasswordRequested += () =>
+        {
+            var changePasswordView = new ChangePasswordView(App.Services.AuthService, viewModel.CurrentUser)
+            {
+                Owner = this
+            };
+            changePasswordView.ShowDialog();
+        };
         DataContext = viewModel;
     }
 

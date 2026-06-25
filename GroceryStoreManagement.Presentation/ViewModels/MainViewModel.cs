@@ -17,12 +17,16 @@ public class MainViewModel : BaseViewModel
 
         ShowDashboardCommand = new RelayCommand(_ => NavigateToDashboard());
         ShowSanPhamCommand = new RelayCommand(_ => NavigateToSanPham());
+        ShowDanhMucCommand = new RelayCommand(_ => NavigateToDanhMuc());
+        ShowDonViTinhCommand = new RelayCommand(_ => NavigateToDonViTinh());
+        ShowNhaCungCapCommand = new RelayCommand(_ => NavigateToNhaCungCap());
         ShowNhapHangCommand = new RelayCommand(_ => NavigateToNhapHang());
         ShowBanHangCommand = new RelayCommand(_ => NavigateToBanHang());
         ShowKhachHangCommand = new RelayCommand(_ => NavigateToKhachHang());
         ShowKiemKeCommand = new RelayCommand(_ => NavigateToKiemKe());
         ShowBaoCaoCommand = new RelayCommand(_ => NavigateToBaoCao());
         LogoutCommand = new AsyncRelayCommand(_ => LogoutAsync());
+        ChangePasswordCommand = new RelayCommand(_ => ChangePasswordRequested?.Invoke());
 
         NavigateToDashboard();
     }
@@ -46,6 +50,9 @@ public class MainViewModel : BaseViewModel
 
     public bool CanViewDashboard => true;
     public bool CanViewSanPham => IsAdmin || IsQuanLy || IsNhanVienKho;
+    public bool CanViewDanhMuc => IsAdmin || IsQuanLy;
+    public bool CanViewDonViTinh => IsAdmin || IsQuanLy;
+    public bool CanViewNhaCungCap => IsAdmin || IsQuanLy || IsNhanVienKho;
     public bool CanViewNhapHang => IsAdmin || IsQuanLy || IsNhanVienKho;
     public bool CanViewBanHang => IsAdmin || IsQuanLy || IsNhanVienBanHang;
     public bool CanViewKhachHang => IsAdmin || IsQuanLy || IsNhanVienBanHang;
@@ -54,14 +61,19 @@ public class MainViewModel : BaseViewModel
 
     public ICommand ShowDashboardCommand { get; }
     public ICommand ShowSanPhamCommand { get; }
+    public ICommand ShowDanhMucCommand { get; }
+    public ICommand ShowDonViTinhCommand { get; }
+    public ICommand ShowNhaCungCapCommand { get; }
     public ICommand ShowNhapHangCommand { get; }
     public ICommand ShowBanHangCommand { get; }
     public ICommand ShowKhachHangCommand { get; }
     public ICommand ShowKiemKeCommand { get; }
     public ICommand ShowBaoCaoCommand { get; }
     public ICommand LogoutCommand { get; }
+    public ICommand ChangePasswordCommand { get; }
 
     public event Action? LogoutRequested;
+    public event Action? ChangePasswordRequested;
 
     private bool IsAdmin => IsInRole("Admin");
     private bool IsQuanLy => IsInRole("QuanLy");
@@ -83,6 +95,39 @@ public class MainViewModel : BaseViewModel
 
         PageTitle = "Quản lý sản phẩm";
         CurrentViewModel = new SanPhamViewModel(_services.SanPhamService, _services.DanhMucService, _services.DonViTinhService);
+    }
+
+    private void NavigateToDanhMuc()
+    {
+        if (!CanViewDanhMuc)
+        {
+            return;
+        }
+
+        PageTitle = "Quản lý danh mục";
+        CurrentViewModel = new DanhMucViewModel(_services.DanhMucService);
+    }
+
+    private void NavigateToDonViTinh()
+    {
+        if (!CanViewDonViTinh)
+        {
+            return;
+        }
+
+        PageTitle = "Quản lý đơn vị tính";
+        CurrentViewModel = new DonViTinhViewModel(_services.DonViTinhService);
+    }
+
+    private void NavigateToNhaCungCap()
+    {
+        if (!CanViewNhaCungCap)
+        {
+            return;
+        }
+
+        PageTitle = "Quản lý nhà cung cấp";
+        CurrentViewModel = new NhaCungCapViewModel(_services.NhaCungCapService);
     }
 
     private void NavigateToNhapHang()

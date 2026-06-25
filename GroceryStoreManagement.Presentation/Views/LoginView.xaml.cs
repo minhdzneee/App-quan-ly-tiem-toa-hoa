@@ -17,6 +17,14 @@ public partial class LoginView : Window
             mainWindow.Show();
             Close();
         };
+        viewModel.RegisterRequested += () =>
+        {
+            var registerView = new RegisterView
+            {
+                Owner = this
+            };
+            registerView.ShowDialog();
+        };
 
         DataContext = viewModel;
     }

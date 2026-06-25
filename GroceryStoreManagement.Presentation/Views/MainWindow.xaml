@@ -32,6 +32,15 @@
                     <Button Content="Sản phẩm"
                             Command="{Binding ShowSanPhamCommand}"
                             Visibility="{Binding CanViewSanPham, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="Danh mục"
+                            Command="{Binding ShowDanhMucCommand}"
+                            Visibility="{Binding CanViewDanhMuc, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="Đơn vị tính"
+                            Command="{Binding ShowDonViTinhCommand}"
+                            Visibility="{Binding CanViewDonViTinh, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="Nhà cung cấp"
+                            Command="{Binding ShowNhaCungCapCommand}"
+                            Visibility="{Binding CanViewNhaCungCap, Converter={StaticResource BoolToVisibilityConverter}}" />
                     <Button Content="Nhập hàng"
                             Command="{Binding ShowNhapHangCommand}"
                             Visibility="{Binding CanViewNhapHang, Converter={StaticResource BoolToVisibilityConverter}}" />
@@ -57,10 +66,14 @@
                     <TextBlock Text="{Binding RoleDisplayName}"
                                Foreground="#B7DDE7"
                                TextWrapping="Wrap" />
+                    <Button Content="Đổi mật khẩu"
+                            Command="{Binding ChangePasswordCommand}"
+                            Background="#64748B"
+                            Margin="0,14,0,0" />
                     <Button Content="Đăng xuất"
                             Command="{Binding LogoutCommand}"
                             Background="{StaticResource DangerBrush}"
-                            Margin="0,14,0,0" />
+                            Margin="0,6,0,0" />
                 </StackPanel>
             </DockPanel>
         </Border>

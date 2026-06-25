@@ -48,6 +48,7 @@ GroceryStoreManagement/
       Các ảnh sơ đồ UML, ERD và kiến trúc
     UML_Mermaid.md
     BaoCao_BaiTapLon.md
+    HuongDanSuDung.md
 ```
 
 ## 2. Các Thành Phần Chính
@@ -59,6 +60,7 @@ GroceryStoreManagement/
 - `database/GroceryStoreManagement.sql`: script tạo database, bảng, khóa chính, khóa ngoại, ràng buộc và dữ liệu mẫu.
 - `docs/UML_Mermaid.md`: mã Mermaid cho các sơ đồ UML/ERD.
 - `docs/BaoCao_BaiTapLon.md`: nội dung báo cáo bài tập lớn.
+- `docs/HuongDanSuDung.md`: hướng dẫn thao tác từng màn hình khi demo/test.
 - `docs/images/`: các ảnh sơ đồ phân tích thiết kế dùng trong báo cáo và README.
 
 ## 3. Yêu Cầu Cài Đặt Trên Máy Windows
@@ -253,9 +255,9 @@ Phân quyền menu hiện tại:
 
 | Vai trò | Chức năng được hiển thị |
 | --- | --- |
-| Admin | Dashboard, Sản phẩm, Nhập hàng, Bán hàng, Khách hàng, Kiểm kê, Báo cáo |
-| Quản lý | Dashboard, Sản phẩm, Nhập hàng, Bán hàng, Khách hàng, Kiểm kê, Báo cáo |
-| Nhân viên kho | Dashboard, Sản phẩm, Nhập hàng, Kiểm kê |
+| Admin | Dashboard, Sản phẩm, Danh mục, Đơn vị tính, Nhà cung cấp, Nhập hàng, Bán hàng, Khách hàng, Kiểm kê, Báo cáo |
+| Quản lý | Dashboard, Sản phẩm, Danh mục, Đơn vị tính, Nhà cung cấp, Nhập hàng, Bán hàng, Khách hàng, Kiểm kê, Báo cáo |
+| Nhân viên kho | Dashboard, Sản phẩm, Nhà cung cấp, Nhập hàng, Kiểm kê |
 | Nhân viên bán hàng | Dashboard, Bán hàng, Khách hàng |
 
 ## 10. Các Chức Năng Đã Có
@@ -265,6 +267,9 @@ Phân quyền menu hiện tại:
 - Ghi lịch sử truy cập.
 - Dashboard tổng quan.
 - Quản lý sản phẩm.
+- Quản lý danh mục.
+- Quản lý đơn vị tính.
+- Quản lý nhà cung cấp.
 - Tìm kiếm sản phẩm theo mã, tên hoặc mã vạch.
 - Lọc sản phẩm theo danh mục.
 - Cảnh báo tồn kho thấp.
@@ -275,6 +280,8 @@ Phân quyền menu hiện tại:
 - Kiểm tra tồn kho trước khi bán.
 - Cập nhật tồn kho khi bán hàng.
 - Quản lý khách hàng.
+- Tạo tài khoản.
+- Đổi mật khẩu.
 - Kiểm kê kho.
 - Báo cáo doanh thu, tồn kho thấp, sản phẩm sắp hết hạn và sản phẩm bán chạy.
 
@@ -406,18 +413,11 @@ Kiểm tra đã chạy script database chưa. Script có sẵn các tài khoản
 
 Đây là bình thường. Các thư mục `bin/` và `obj/` không cần push lên GitHub. Visual Studio sẽ tự tạo lại khi build.
 
-## 14. Ghi Chú Cho Người Chấm Hoặc Người Test
-
-- Mở `GroceryStoreManagement.sln` bằng Visual Studio 2022 trên Windows.
-- Chạy database trước bằng file `database/GroceryStoreManagement.sql`.
-- Kiểm tra connection string trong `App.xaml.cs`.
-- Startup Project là `GroceryStoreManagement.Presentation`.
-- Tài khoản test nhanh: `admin / 123456`.
-
-## 15. Tài Liệu Đi Kèm
+## 14. Tài Liệu Đi Kèm
 
 Các tài liệu phân tích thiết kế nằm trong thư mục `docs/`:
 
 - `BaoCao_BaiTapLon.md`
+- `HuongDanSuDung.md`
 - `UML_Mermaid.md`
 - `images/`
