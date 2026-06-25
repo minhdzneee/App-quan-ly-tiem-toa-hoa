@@ -41,7 +41,7 @@
             <Setter Property="Margin" Value="4" />
             <Setter Property="AutoGenerateColumns" Value="False" />
             <Setter Property="CanUserAddRows" Value="False" />
-            <Setter Property="IsReadOnly" Value="False" />
+            <Setter Property="IsReadOnly" Value="True" />
             <Setter Property="GridLinesVisibility" Value="Horizontal" />
             <Setter Property="HeadersVisibility" Value="Column" />
         </Style>
