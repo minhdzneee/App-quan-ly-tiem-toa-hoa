@@ -149,13 +149,19 @@ public class SanPhamViewModel : BaseViewModel
         {
             if (EditingSanPham.Id == 0)
             {
-                await _sanPhamService.AddAsync(EditingSanPham);
-                StatusMessage = "Đã thêm sản phẩm.";
+                var newId = await _sanPhamService.AddAsync(EditingSanPham);
+                var savedProduct = await _sanPhamService.GetByIdAsync(newId);
+                if (savedProduct is null)
+                {
+                    throw new InvalidOperationException("Da them san pham nhung khong doc lai duoc tu co so du lieu.");
+                }
+
+                StatusMessage = $"Đã thêm sản phẩm vào cơ sở dữ liệu. Id: {newId}.";
             }
             else
             {
                 await _sanPhamService.UpdateAsync(EditingSanPham);
-                StatusMessage = "Đã cập nhật sản phẩm.";
+                StatusMessage = "Đã cập nhật sản phẩm trong cơ sở dữ liệu.";
             }
 
             var successMessage = StatusMessage;
